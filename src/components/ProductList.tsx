@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import {
   ProductData,
   CategoryFromHere,
-  State,
+  ProductState,
   categoryInKorean,
 } from '../store/product';
 
@@ -61,10 +61,10 @@ export default function ProductList({
   const productContainer = useRef<HTMLDivElement>(null);
 
   const fetchStatus = useSelector(
-    (state: State) => state.productStore.fetchStatus,
+    (state: ProductState) => state.productStore.fetchStatus,
   );
   const productData = useSelector(
-    (state: State) => state.productStore[category],
+    (state: ProductState) => state.productStore[category],
   );
 
   // 홈페이지와 카테고리 페이지의 css 구분하기

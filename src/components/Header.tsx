@@ -1,14 +1,14 @@
 import darkThemeButton from '../assets/theme-icon/dark.svg';
 import lightThemeButton from '../assets/theme-icon/light.svg';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Search from './Search';
 import { themeContext } from '../App';
+import { CartState } from '../store/cart';
 
 export default function Header() {
   const { theme, setTheme } = useContext(themeContext);
-  const dispatch = useDispatch();
 
   function changeTheme(): void {
     switch (theme) {
@@ -27,7 +27,7 @@ export default function Header() {
    * Cart Store
    */
   const cartItemsCount = useSelector(
-    (state: any) => state.cartStore.totalCount,
+    (state: CartState) => state.cartStore.totalCount,
   );
 
   return (

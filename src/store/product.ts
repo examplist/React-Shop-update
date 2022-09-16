@@ -23,7 +23,7 @@ export interface ProductData {
   };
 }
 
-export interface State {
+export interface ProductState {
   productStore: {
     fetchStatus: string;
     fashion: ProductData[];
@@ -69,11 +69,11 @@ const fetchProducts = createAsyncThunk('reducer1/fetchTitles', async () => {
 const productStore = createSlice({
   name: 'products',
   initialState: {
-    fetchStatus: '',
-    fashion: [],
-    accessory: [],
-    digital: [],
-    all: [],
+    fetchStatus: '' as string,
+    fashion: [] as ProductData[],
+    accessory: [] as ProductData[],
+    digital: [] as ProductData[],
+    all: [] as ProductData[],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -82,10 +82,10 @@ const productStore = createSlice({
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.fetchStatus = 'fetched';
-      state.fashion = action.payload.fashion as any;
-      state.accessory = action.payload.accessory as any;
-      state.digital = action.payload.digital as any;
-      state.all = action.payload.all as any;
+      state.fashion = action.payload.fashion;
+      state.accessory = action.payload.accessory;
+      state.digital = action.payload.digital;
+      state.all = action.payload.all;
     });
     builder.addCase(fetchProducts.rejected, (state) => {
       state.fetchStatus = 'failed';

@@ -1,36 +1,39 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { cartActions } from '../store/cart';
+import { cartActions, CartState } from '../store/cart';
+import { ProductData } from '../store/product';
 
-export default function CartItems(props: any) {
+type Props = Pick<ProductData, 'id' | 'image' | 'price' | 'title'>;
+
+export default function CartItems({ image, id, price, title }: Props) {
   const dispatch = useDispatch();
   const cartItemCount = useSelector(
-    (state: any) => state.cartStore.items[`${props.id}`].count,
+    (state: CartState) => state.cartStore.items[id].count,
   );
 
   const reduceFromCart = () => {
-    dispatch(cartActions.removeCart({ id: props.id }));
+    dispatch(cartActions.removeCart({ id }));
   };
 
   const addToCart = () => {
-    dispatch(cartActions.addCart({ id: props.id }));
+    dispatch(cartActions.addCart({ id }));
   };
 
   return (
     <div className="lg:flex lg:items-center mt-4 px-2 lg:px-0">
-      <Link to={'/product/' + props.id}>
+      <Link to={'/product/' + id}>
         <figure className="w-56 min-w-full flex-shrink-0 rounded-2xl overflow-hidden px-4 py-4 bg-white">
           <img
-            src={props.image}
+            src={image}
             alt="상품 이미지"
             className="object-contain w-full h-48"
           />
         </figure>
       </Link>
       <div className="card-body px-1 lg:px-12">
-        <h2 className="card-title">{props.title}</h2>
+        <h2 className="card-title">{title}</h2>
         <p className="mt-2 mb-4 text-3xl">
-          ${(props.price * cartItemCount).toFixed(2)}
+          ${(price * cartItemCount).toFixed(2)}
         </p>
         <div className="card-actions">
           <div className="btn-group">

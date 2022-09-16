@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { cartActions } from '../store/cart';
-import { categoryInKorean, State } from '../store/product';
+import { categoryInKorean, ProductState } from '../store/product';
 
 function Stars({ rate, standard }: { rate: number; standard: number }) {
   const totalHalfStars = standard * 2;
@@ -48,7 +48,7 @@ function Loading() {
 function Fetched() {
   const id = Number(useParams().pid);
   const { category, title, description, image, rating, price } = useSelector(
-    (state: State) => state.productStore.all[id - 1],
+    (state: ProductState) => state.productStore.all[id - 1],
   );
 
   const dispatch = useDispatch();
@@ -99,7 +99,7 @@ function Fetched() {
 
 export default function Product() {
   const fetchStatus = useSelector(
-    (state: State) => state.productStore.fetchStatus,
+    (state: ProductState) => state.productStore.fetchStatus,
   );
 
   function returnByStatus() {

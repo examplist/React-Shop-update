@@ -1,38 +1,26 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-interface ProductData {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
-}
+import { ProductData } from '../store/product';
 
 export default function Search() {
   const [searchArray, setSearchArray] = useState<ProductData[]>([]);
   const [isSearch, setIsSearch] = useState(false);
   const productData = useSelector((state: any) => state.productStore.all);
-  const [theme, setTheme] = useState<string>('light');
   const searchBarWhenNarrow = useRef<HTMLInputElement>(null);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = e;
-    const arr = [];
-    for (let k in productData) {
-      if (productData[k].title.includes(value)) {
-        arr.push(productData[k]);
-      }
-    }
-    setSearchArray(arr);
+    // 소문자, 대문자 상관없게 하기
+    const regExpValue = new RegExp(value, 'i');
+    const filtered = productData.filter((product: ProductData) => {
+      return regExpValue.test(product.title);
+    });
+
+    value === '' && setSearchArray([]);
+    value !== '' && setSearchArray(filtered);
   };
 
   const onFocusHandler = () => {
@@ -69,6 +57,7 @@ export default function Search() {
           />
         </svg>
       </button>
+      {/* 좁을 때 */}
       <input
         onChange={onChangeHandler}
         onFocus={onFocusHandler}
@@ -79,18 +68,31 @@ export default function Search() {
         id="search"
         ref={searchBarWhenNarrow}
       />
+      {searchArray.length > 0 && (
+        <ul
+          className={`absolute top-[128px] left-0 block overflow-y-scroll max-h-32 bg-white w-full`}
+        >
+          {searchArray.map((product) => {
+            return (
+              <li key={product.id} className="p-2 textxl">
+                <Link to={`/product/${product.id}`}>{product.title}</Link>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      {/* 넓을 때 */}
       <input
         onChange={onChangeHandler}
-        onFocus={onFocusHandler}
-        onBlur={onBlurHandler}
+        // onFocus={onFocusHandler}
+        // onBlur={onBlurHandler}
         type={'search'}
         placeholder="검색"
         className="hidden sm:block input input-bordered w-full max-w-xs"
         id="search"
       />
-      {isSearch && (
+      {/* {isSearch && (
         <ul
-          data-theme={theme}
           tabIndex={0}
           className="menu dropdown-content p-2 shadow bg-base-100 w-52 mt-4 !fixed right-20 sm:!absolute sm:top-14 menu dropdown-content w-full sm:w-64 max-h-96 shadow text-base-content overflow-y-auto bg-white dark:bg-gray-600"
         >
@@ -104,7 +106,8 @@ export default function Search() {
             </li>
           ))}
         </ul>
-      )}
+      )} */}
+      {/* 좁을 때 */}
     </>
   );
 }

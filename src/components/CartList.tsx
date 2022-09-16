@@ -1,19 +1,25 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { cartActions } from '../store/cart';
 import CartItems from './CartItems';
+import { CartState } from '../store/cart';
+import { ProductState, ProductData } from '../store/product';
 
 export default function CartList() {
-  const products = useSelector((state: any) => state.productStore.all);
-  const cartItems = useSelector((state: any) => state.cartStore.items);
+  const products = useSelector((state: ProductState) => state.productStore.all);
+  const cartItems = useSelector((state: CartState) => state.cartStore.items);
   const dispatch = useDispatch();
 
-  let items: any = [];
+  let items: ProductData[] = [];
   let totalPrice = 0;
 
   Object.keys(cartItems).map((id) => {
-    const product = products.find((prod: any) => prod.id == id);
-    items.push(product);
-    totalPrice += product.price * cartItems[id].count;
+    const product = products.find(
+      (prod: ProductData) => prod.id === Number(id),
+    );
+    if (product) {
+      items.push(product);
+      totalPrice += product.price * cartItems[Number(id)].count;
+    }
   });
 
   const buyAll = () => {
@@ -24,13 +30,13 @@ export default function CartList() {
     <>
       <div className="lg:flex justify-between mb-20">
         <div>
-          {items.map((item: any) => (
+          {items.map(({ image, id, price, title }) => (
             <CartItems
-              image={item.image}
-              id={item.id}
-              key={item.id}
-              price={item.price}
-              title={item.title}
+              image={image}
+              id={id}
+              key={id}
+              price={price}
+              title={title}
             />
           ))}
         </div>
