@@ -1,17 +1,27 @@
-import React, { useRef, useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ProductData } from '../store/product';
+import { ProductData, ProductState } from '../store/product';
 
 export default function Search() {
-  const [searchArray, setSearchArray] = useState<ProductData[]>([]);
-  const [isSearch, setIsSearch] = useState(false);
-  const productData = useSelector((state: any) => state.productStore.all);
-  const searchBarWhenNarrow = useRef<HTMLInputElement>(null);
+  let linkMode = false;
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const productData = useSelector(
+    (state: ProductState) => state.productStore.all,
+  );
+  const [input, setInput] = useState<string>('');
+  const [results, setResults] = useState<ProductData[]>([]);
+
+  const [inputWhenNarrowVisible, setInputWhenNarrowVisible] =
+    useState<string>('invisible');
+  const [resultWhenNarrowVisible, setResultWhenNarrowVisible] =
+    useState<string>('hidden');
+  const [resultWhenWideVisible, setResultWhenWideVisible] =
+    useState<string>('sm:hidden');
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const {
-      target: { value },
+      target: { value, id },
     } = e;
     // 소문자, 대문자 상관없게 하기
     const regExpValue = new RegExp(value, 'i');
@@ -19,28 +29,70 @@ export default function Search() {
       return regExpValue.test(product.title);
     });
 
-    value === '' && setSearchArray([]);
-    value !== '' && setSearchArray(filtered);
+    // wide에서 검색한 상태 그대로 유지하기
+    setInputWhenNarrowVisible('translate-y-full');
+
+    // narrow에서 검색할 때와 wide에서 검색할 때 CSS 다르게 하기
+    if (id === 'input-when-narrow') {
+      setResultWhenNarrowVisible('block');
+      setResultWhenWideVisible('sm:hidden');
+    } else if (id === 'input-when-wide') {
+      setResultWhenNarrowVisible('hidden');
+      setResultWhenWideVisible('sm:block');
+    }
+
+    // 빈 값일 때
+    if (value === '') {
+      setInput('');
+      setResults([]);
+    } else {
+      setInput(value);
+      setResults(filtered);
+    }
   };
 
-  const onFocusHandler = () => {
-    setIsSearch(true);
+  const toggleInputWhenNarrow = () => {
+    if (inputWhenNarrowVisible === 'invisible') {
+      setInputWhenNarrowVisible('translate-y-full');
+    } else {
+      setInputWhenNarrowVisible('invisible');
+    }
+    setResultWhenNarrowVisible('hidden');
+    setResultWhenWideVisible('sm:hidden');
+    setInput('');
+    setResults([]);
   };
 
-  const onBlurHandler = () => {
-    setIsSearch(false);
-  };
+  function onFocus() {
+    setResultWhenNarrowVisible('block');
+    setResultWhenWideVisible('sm:block');
+  }
 
-  const toggleSearch = () => {
-    searchBarWhenNarrow.current?.classList.toggle('invisible');
-    searchBarWhenNarrow.current?.classList.toggle('translate-y-full');
-  };
+  function onBlur() {
+    if (linkMode) {
+      linkMode = false;
+      return;
+    }
+    setResultWhenNarrowVisible('hidden');
+    setResultWhenWideVisible('sm:hidden');
+  }
+
+  function linkOnMouseDown() {
+    linkMode = true;
+  }
+
+  function linkOnClick() {
+    setInputWhenNarrowVisible(() => 'invisible');
+    setInput('');
+    setResults([]);
+  }
 
   return (
     <>
+      {/* 좁을 때 생기는 버튼 */}
       <button
         className="btn btn-ghost btn-circle sm:hidden"
-        onClick={toggleSearch}
+        onClick={toggleInputWhenNarrow}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -58,56 +110,63 @@ export default function Search() {
         </svg>
       </button>
       {/* 좁을 때 */}
-      <input
-        onChange={onChangeHandler}
-        onFocus={onFocusHandler}
-        onBlur={onBlurHandler}
-        type={'search'}
-        placeholder="검색"
-        className="input absolute w-full h-full rounded-none border border-slate-400 left-0 z-[-10] invisible sm:hidden transition ease-in-out duration-300"
-        id="search"
-        ref={searchBarWhenNarrow}
-      />
-      {searchArray.length > 0 && (
-        <ul
-          className={`absolute top-[128px] left-0 block overflow-y-scroll max-h-32 bg-white w-full`}
-        >
-          {searchArray.map((product) => {
-            return (
-              <li key={product.id} className="p-2 textxl">
-                <Link to={`/product/${product.id}`}>{product.title}</Link>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      <div className="search-when-narrow">
+        <input
+          onChange={onChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          type={'search'}
+          placeholder="검색"
+          className={`${inputWhenNarrowVisible} input absolute w-full h-full rounded-none border border-slate-400 left-0 z-[-10] sm:hidden transition ease-in-out duration-300`}
+          id="input-when-narrow"
+          value={input}
+        />
+        {results.length > 0 && (
+          <div
+            className={`${resultWhenNarrowVisible} absolute top-[128px] left-0 overflow-y-scroll max-h-32 w-full stats rounded-none block sm:hidden`}
+            onMouseDown={linkOnMouseDown}
+            onClick={linkOnClick}
+          >
+            {results.map((product) => {
+              return (
+                <div key={product.id} className="p-2">
+                  <Link to={`/product/${product.id}`}>{product.title}</Link>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
       {/* 넓을 때 */}
-      <input
-        onChange={onChangeHandler}
-        // onFocus={onFocusHandler}
-        // onBlur={onBlurHandler}
-        type={'search'}
-        placeholder="검색"
-        className="hidden sm:block input input-bordered w-full max-w-xs"
-        id="search"
-      />
-      {/* {isSearch && (
-        <ul
-          tabIndex={0}
-          className="menu dropdown-content p-2 shadow bg-base-100 w-52 mt-4 !fixed right-20 sm:!absolute sm:top-14 menu dropdown-content w-full sm:w-64 max-h-96 shadow text-base-content overflow-y-auto bg-white dark:bg-gray-600"
-        >
-          {searchArray.map((el) => (
-            <li>
-              <Link to={'#'} className="text-left js-searchedItem">
-                <span className="text-left text-gray-600 dark:text-white line-clamp-2">
-                  {el.title}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )} */}
-      {/* 좁을 때 */}
+      <div>
+        <div className="search-when-wide">
+          <input
+            onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            type={'search'}
+            placeholder="검색"
+            className="hidden sm:block input input-bordered w-full max-w-xs"
+            id="input-when-wide"
+            value={input}
+          />
+          {results.length > 0 && (
+            <div
+              className={`${resultWhenWideVisible} hidden absolute top-[${64}px] right-[56px] block overflow-y-scroll max-h-32 w-64 stats rounded-none`}
+              onMouseDown={linkOnMouseDown}
+              onClick={linkOnClick}
+            >
+              {results.map((product) => {
+                return (
+                  <div key={product.id} className="p-2">
+                    <Link to={`/product/${product.id}`}>{product.title}</Link>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
     </>
   );
 }

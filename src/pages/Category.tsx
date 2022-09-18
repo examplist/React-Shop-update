@@ -3,8 +3,8 @@ import { categoryInKorean, CategoryFromHere } from '../store/product';
 
 export default function Category({ category }: { category: CategoryFromHere }) {
   return (
-    <section className="pl-6 pt-2">
-      <div className="text-sm breadcrumbs">
+    <section>
+      <div className="text-sm breadcrumbs pl-6 pt-2">
         <ul>
           <li>홈</li>
           <li>{categoryInKorean[category]}</li>
