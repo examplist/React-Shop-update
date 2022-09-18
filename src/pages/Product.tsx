@@ -3,43 +3,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { cartActions } from '../store/cart';
 import { categoryInKorean, ProductState } from '../store/product';
-
-function Stars({ rate, standard }: { rate: number; standard: number }) {
-  const totalHalfStars = standard * 2;
-  const starElements = [];
-
-  function Star({
-    side,
-    checked,
-  }: {
-    side: 'mask-half-1' | 'mask-half-2';
-    checked: boolean;
-  }) {
-    return (
-      <input
-        type="radio"
-        name="rating-10"
-        className={`bg-yellow-400 cursor-default mask mask-star-2 ${side}`}
-        disabled
-        checked={checked}
-      />
-    );
-  }
-
-  for (let i = 0; i < totalHalfStars; i++) {
-    const side = i % 2 === 0 ? 'mask-half-1' : 'mask-half-2';
-    const checked = Math.floor(rate * 2) - 1 === i ? true : false;
-
-    starElements.push(<Star key={i} side={side} checked={checked} />);
-  }
-
-  return (
-    <div className="rating rating-half">
-      <input type="radio" name="rating-10" className="rating-hidden" />
-      {starElements}
-    </div>
-  );
-}
+import Stars from '../components/Stars';
 
 function Loading() {
   return <div className="h-56 animate-pulse bg-slate-400"></div>;
@@ -65,12 +29,12 @@ function Fetched() {
         </ul>
       </div>
 
-      <div className="md:flex md:items-center mt-6">
+      <div className="lg:flex lg:items-center mt-6">
         <figure className="flex-shrink-0 rounded-2xl bg-white">
           {/* <img src={image} alt={title} className="object-contain w-full h-72" /> */}
           <img src={image} alt={title} className="h-72 mx-auto" />
         </figure>
-        <div className="card-body px-1 md:px-12">
+        <div className="card-body px-1 lg:px-12">
           <h2 className="card-title">
             {title}
             <span className="badge badge-accent ml-2">NEW</span>
@@ -119,5 +83,5 @@ export default function Product() {
     }
   }
 
-  return <div className="px-6 py-2">{returnByStatus()}</div>;
+  return <section className="px-6 py-2">{returnByStatus()}</section>;
 }

@@ -66,7 +66,7 @@ const fetchProducts = createAsyncThunk('reducer1/fetchTitles', async () => {
   return { fashion, accessory, digital, all };
 });
 
-const productStore = createSlice({
+const productSlice = createSlice({
   name: 'products',
   initialState: {
     fetchStatus: '' as string,
@@ -104,5 +104,5 @@ const categoryInKorean: Record<Category, string> = {
   all: '',
 };
 
-export default productStore;
+export default productSlice;
 export { fetchProducts, categoryInKorean };

@@ -27,7 +27,7 @@ export default function CartList() {
   };
 
   return (
-    <>
+    <div>
       <div className="lg:flex justify-between mb-20">
         <div>
           {items.map(({ image, id, price, title }) => (
@@ -73,6 +73,6 @@ export default function CartList() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

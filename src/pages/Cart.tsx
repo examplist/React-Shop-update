@@ -16,7 +16,7 @@ export default function Cart() {
           <li>장바구니</li>
         </ul>
       </div>
-      <div>{cartItemsCount === 0 ? <CartEmpty /> : <CartList />}</div>
+      {cartItemsCount === 0 ? <CartEmpty /> : <CartList />}
     </section>
   );
 }

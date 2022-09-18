@@ -2,8 +2,10 @@ import { useState, ChangeEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ProductData, ProductState } from '../store/product';
+import { headerHeight } from '../App';
 
 export default function Search() {
+  const searchWhenNarrowResultsTop = `top-[${headerHeight * 2}px]`;
   let linkMode = false;
 
   const productData = useSelector(
@@ -123,7 +125,7 @@ export default function Search() {
         />
         {results.length > 0 && (
           <div
-            className={`${resultWhenNarrowVisible} absolute top-[128px] left-0 overflow-y-scroll max-h-32 w-full stats rounded-none block sm:hidden`}
+            className={`${resultWhenNarrowVisible} absolute ${searchWhenNarrowResultsTop} left-0 overflow-y-scroll max-h-32 w-full stats rounded-none block sm:hidden`}
             onMouseDown={linkOnMouseDown}
             onClick={linkOnClick}
           >

@@ -1,4 +1,3 @@
-// import AppRouter from './router/AppRouter';
 import { useAppDispatch } from './store';
 import { fetchProducts } from './store/product';
 import { createContext, useState, useEffect, useRef } from 'react';
@@ -16,11 +15,13 @@ interface Theme {
   theme: string;
   setTheme: (theme: string) => void;
 }
-
 export const themeContext = createContext<Theme>({
   theme: '',
   setTheme: (theme) => {},
 });
+
+export const headerHeight = 64;
+export const footerHeight = 288;
 
 export default function App() {
   // prduct data를 store로 보내기
@@ -32,11 +33,9 @@ export default function App() {
   // 라이트모드, 다크모드 관리
   const [theme, setTheme] = useState<string>('light');
 
-  const headerHeight = useRef<number>();
-  const footerHeight = useRef<number>();
-
-  const style = {
-    minHeight: 'calc(100vh - 288px - 64px)',
+  // main의 height가 작아서 footer가 올라 오는 것 방지
+  const mainHeight = {
+    minHeight: `calc(100vh - ${headerHeight}px - ${footerHeight}px)`,
   };
 
   return (
@@ -44,7 +43,7 @@ export default function App() {
       <div data-theme={theme}>
         <BrowserRouter>
           <Header />
-          <div style={style}>
+          <main style={mainHeight}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route
@@ -63,7 +62,7 @@ export default function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </div>
+          </main>
           <Footer />
         </BrowserRouter>
       </div>

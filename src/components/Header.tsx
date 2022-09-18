@@ -1,9 +1,10 @@
 import { useContext, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import Search from './Search';
 import { themeContext } from '../App';
+import { useSelector } from 'react-redux';
 import { CartState } from '../store/cart';
+import { headerHeight } from '../App';
+import { Link } from 'react-router-dom';
+import Search from './Search';
 
 export default function Header() {
   const { theme, setTheme } = useContext(themeContext);
@@ -35,7 +36,10 @@ export default function Header() {
   }
 
   return (
-    <nav className="navbar sticky top-0 z-10" data-theme={theme}>
+    <header
+      className={`navbar sticky top-0 z-10 h-[${headerHeight}px]`}
+      data-theme={theme}
+    >
       {/* 축소 시 생기는 버튼, 드랍다운으로 카테고리를 선택할 수 있습니다. */}
       <div className="dropdown md:hidden" id="category_drop-down">
         <label
@@ -141,6 +145,6 @@ export default function Header() {
           </span>
         </Link>
       </label>
-    </nav>
+    </header>
   );
 }
