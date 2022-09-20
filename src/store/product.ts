@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+const productURL = import.meta.env.VITE_PRODUCT_URL;
+
 export type CategoryFromHere = 'fashion' | 'accessory' | 'digital' | 'all';
 
 export type CategoryFromServer =
@@ -34,7 +36,7 @@ export interface ProductState {
 }
 
 const fetchProducts = createAsyncThunk('reducer1/fetchTitles', async () => {
-  const response = await fetch('https://fakestoreapi.com/products');
+  const response = await fetch(productURL);
   const products: ProductData[] = await response.json();
 
   let fashion: ProductData[] = [];

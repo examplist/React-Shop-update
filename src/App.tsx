@@ -1,6 +1,6 @@
 import { useAppDispatch } from './store';
 import { fetchProducts } from './store/product';
-import { createContext, useState, useEffect, useRef } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 import Header from './components/Header';

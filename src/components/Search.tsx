@@ -5,7 +5,7 @@ import { ProductData, ProductState } from '../store/product';
 import { headerHeight } from '../App';
 
 export default function Search() {
-  const searchWhenNarrowResultsTop = `top-[${headerHeight * 2}px]`;
+  const searchWhenNarrowResultsTop = 'top-[128px]';
   let linkMode = false;
 
   const productData = useSelector(
@@ -148,7 +148,7 @@ export default function Search() {
             onBlur={onBlur}
             type={'search'}
             placeholder="검색"
-            className="hidden sm:block input input-bordered w-full max-w-xs"
+            className="hidden sm:block input input-bordered"
             id="input-when-wide"
             value={input}
           />
