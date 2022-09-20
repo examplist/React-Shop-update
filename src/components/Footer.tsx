@@ -1,9 +1,12 @@
 import { footerHeight } from '../App';
 
 export default function Footer() {
+  const footerStyle = { height: `${footerHeight}px` };
+
   return (
     <footer
-      className={`footer footer-center p-10 bg-base-200 text-base-content h-[${footerHeight}px]`}
+      className={`footer footer-center p-10 bg-base-200 text-base-content`}
+      style={footerStyle}
     >
       {/* 1. 제로베이스 링크 */}
       <div>

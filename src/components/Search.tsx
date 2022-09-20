@@ -5,7 +5,7 @@ import { ProductData, ProductState } from '../store/product';
 import { headerHeight } from '../App';
 
 export default function Search() {
-  const searchWhenNarrowResultsTop = 'top-[128px]';
+  const resultWhenNarrowStyle = { top: `${headerHeight * 2}px` };
   let linkMode = false;
 
   const productData = useSelector(
@@ -125,7 +125,8 @@ export default function Search() {
         />
         {results.length > 0 && (
           <div
-            className={`${resultWhenNarrowVisible} absolute ${searchWhenNarrowResultsTop} left-0 overflow-y-scroll max-h-32 w-full stats rounded-none block sm:hidden`}
+            className={`${resultWhenNarrowVisible} absolute left-0 overflow-y-scroll max-h-32 w-full stats rounded-none block sm:hidden`}
+            style={resultWhenNarrowStyle}
             onMouseDown={linkOnMouseDown}
             onClick={linkOnClick}
           >

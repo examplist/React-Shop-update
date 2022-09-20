@@ -22,6 +22,8 @@ export default function Header() {
     }
   }
 
+  const headerStyle = { height: `${headerHeight}px` };
+
   /**
    * Cart Store
    */
@@ -37,7 +39,8 @@ export default function Header() {
 
   return (
     <header
-      className={`navbar sticky top-0 z-10 h-[${headerHeight}px]`}
+      className={`navbar sticky top-0 z-10`}
+      style={headerStyle}
       data-theme={theme}
     >
       {/* 축소 시 생기는 버튼, 드랍다운으로 카테고리를 선택할 수 있습니다. */}
