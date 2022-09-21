@@ -10,6 +10,10 @@ Fake Store API에서 상품 정보를 받아서 프론트엔드 작업을 한 �
 
 https://github.com/zerobase-frontend-team/React-Shop
 
+배포된 사이트는 다음과 같습니다.
+
+https://react-shop-update.vercel.app/
+
 ## 주요 사용 기술
 
 프레임워크: React
