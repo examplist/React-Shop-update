@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import fashionImage from '../assets/carousel/fashion.jpeg';
 import digitalImage from '../assets/carousel/digital.jpeg';
-import foodImage from '../assets/carousel/food.jpeg';
+import accessoryImage from '../assets/carousel/accessory.jpg';
 
 interface SlideData {
   image: string;
@@ -48,16 +48,16 @@ export default function Comp() {
         path={'/fashion'}
       />
       <Slide
+        image={accessoryImage}
+        title={'아름다운 반지!'}
+        content={'당신의 품위를 높여 보세요.'}
+        path={'/accessory'}
+      />
+      <Slide
         image={digitalImage}
         title={'신속한 업무처리!'}
         content={'다양한 디지털 상품을 둘러보세요.'}
         path={'/digital'}
-      />
-      <Slide
-        image={foodImage}
-        title={'신선한 식품!'}
-        content={'농장 직배송으로 더욱 신선한 식료품을 만나보세요.'}
-        path={'/food'}
       />
     </Carousel>
   );
