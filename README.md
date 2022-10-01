@@ -24,6 +24,12 @@ https://react-shop-update.vercel.app/
 
 깃헙: https://github.com/bada3670
 
+## 시연 및 기술 설명 영상
+
+다음 링크를 확인해 주시기 바랍니다.
+
+https://youtu.be/eJLJF5J2xcQ
+
 ## 주요 사용 기술
 
 프레임워크: React
