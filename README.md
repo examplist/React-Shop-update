@@ -170,4 +170,4 @@ main 부분의 높이가 낮을 때, footer가 올라오는 것을 방지했습�
 
 해당 페이지를 참고해 주시기를 바랍니다.
 
-https://badascoding.net/retrospection-zerobase-project
+https://github.com/bada3670/React-Shop-update/wiki/%ED%9A%8C%EA%B3%A0

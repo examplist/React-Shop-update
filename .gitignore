@@ -263,3 +263,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/git,node,react,firebase,macos,windows,visualstudiocode
+
+# 문서
+
+회고.md
