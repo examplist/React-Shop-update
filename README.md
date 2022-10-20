@@ -14,16 +14,6 @@ https://github.com/zerobase-frontend-team/React-Shop
 
 https://react-shop-update.vercel.app/
 
-## 드리고 싶은 말씀
-
-해당 과제는 강의에 있는 내용을 그대로 따라한 것이 아니라 말 그대로 '과제'를 한 것임을 말씀드리고 싶습니다. 다른 사람도 이와 비슷한 과제를 제출해서 이 과제를 강의를 따라한 것이라고 오해를 하실까봐 이렇게 적습니다. 그럼에도 제 실력이 의심이 되신다면 제 블로그, 유튜브, 깃헙을 확인해 주시면 감사하겠습니다.
-
-블로그 주소: https://badascoding.net
-
-유튜브 주소: https://www.youtube.com/channel/UC9vS5C2vUhnMNSnao6C-xAA
-
-깃헙: https://github.com/bada3670
-
 ## 시연 및 기술 설명 영상
 
 다음 링크를 확인해 주시기 바랍니다.
