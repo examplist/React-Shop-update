@@ -26,8 +26,6 @@ function SkeletonProduct() {
   );
 }
 
-// 하나의 아이템을 나타내는 컴포넌트입니다.
-// 아래의 ProductList의 자식 컴포넌트입니다.
 function Product({ data }: { data: ProductData }) {
   return (
     <Link to={`/product/${data.id}`}>
