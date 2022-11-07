@@ -1,4 +1,4 @@
-import ProductList from '../components/ProductList';
+import ProductsContainer from '../components/ProductsContainer';
 import { categoryInKorean, CategoryFromHere } from '../store/product';
 
 export default function Category({ category }: { category: CategoryFromHere }) {
@@ -10,7 +10,7 @@ export default function Category({ category }: { category: CategoryFromHere }) {
           <li>{categoryInKorean[category]}</li>
         </ul>
       </div>
-      <ProductList page="category" category={category} />
+      <ProductsContainer page="category" category={category} />
     </section>
   );
 }

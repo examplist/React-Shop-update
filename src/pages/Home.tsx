@@ -1,13 +1,13 @@
 import Carousel from '../components/Carousel';
-import ProductList from '../components/ProductList';
+import ProductsContainer from '../components/ProductsContainer';
 
 export default function Home() {
   return (
     <section>
       <Carousel />
-      <ProductList page="home" category="fashion" />
-      <ProductList page="home" category="accessory" />
-      <ProductList page="home" category="digital" />
+      <ProductsContainer page="home" category="fashion" />
+      <ProductsContainer page="home" category="accessory" />
+      <ProductsContainer page="home" category="digital" />
     </section>
   );
 }
