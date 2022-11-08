@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ProductData, ProductState } from '../store/product';
 import { headerHeight } from '../App';
+import searchFunction from '../utils/search';
 
 export default function Search() {
   const resultWhenNarrowStyle = { top: `${headerHeight * 2}px` };
@@ -25,11 +26,8 @@ export default function Search() {
     const {
       target: { value, id },
     } = e;
-    // 소문자, 대문자 상관없게 하기
-    const regExpValue = new RegExp(value, 'i');
-    const filtered = productData.filter((product: ProductData) => {
-      return regExpValue.test(product.title);
-    });
+
+    const filtered = searchFunction(productData, value);
 
     // wide에서 검색한 상태 그대로 유지하기
     setInputWhenNarrowVisible('translate-y-full');
