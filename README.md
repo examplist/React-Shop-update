@@ -6,19 +6,11 @@ Fake Store API에서 상품 정보를 받아서 프론트엔드 작업을 한 �
 
 원래 '제로베이스'라는 학원의 조별 과제로 진행이 되었고, 그 후 제가 더 보완을 하였습니다.
 
-원래 조별 과제의 결과물은 다음 페이지에서 확인하실 수 있습니다.
-
-https://github.com/zerobase-frontend-team/React-Shop
-
-배포된 사이트는 다음과 같습니다.
-
-https://react-shop-update.vercel.app/
+원래 조별 과제의 결과물은 다음 링크에서 확인하실 수 있습니다. -> [링크](https://github.com/zerobase-frontend-team/React-Shop)
 
 ## 시연 및 기술 설명 영상
 
-다음 링크를 확인해 주시기 바랍니다.
-
-https://youtu.be/eJLJF5J2xcQ
+[링크](https://youtu.be/eJLJF5J2xcQ)
 
 ## 주요 사용 기술
 
@@ -148,7 +140,7 @@ prettier 설정을 관리했습니다.
 
 원래 카테고리별로 상품을 보여주는 것을 하나의 컴포넌트로 만들고, 홈페이지와 카테고리 페이지 둘 다에 쓸 수 있도록 했습니다. 근데 다른 조원이 독립적으로 카테고리 페이지를 만들어서 해당 컴포넌트를 두 페이지 모두에 쓸 수 없었습니다. 이를 두 페이지 모두에 쓸 수 있도록 변경했습니다.
 
-상품 페이지의 경우 skelton이 되지 않는 등 여러 문제가 있었습니다. 이를 수정했습니다.
+상품 페이지의 경우 skeleton이 되지 않는 등 여러 문제가 있었습니다. 이를 수정했습니다.
 
 TypeScript의 타입 부분을 수정했습니다. 기존에는 여기저기서 타입을 지정했다면 store에서 타입을 지정해서 수출을 하는 방식으로 바꾸었습니다. 또한 any를 줄였습니다.
 
@@ -158,6 +150,4 @@ main 부분의 높이가 낮을 때, footer가 올라오는 것을 방지했습�
 
 ## 진행 과정에 대한 회고
 
-해당 페이지를 참고해 주시기를 바랍니다.
-
-https://github.com/bada3670/React-Shop-update/wiki/%ED%9A%8C%EA%B3%A0
+[링크](https://github.com/bada3670/React-Shop-update/wiki/%ED%9A%8C%EA%B3%A0)
